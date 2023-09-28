@@ -1,4 +1,4 @@
-import { memberList } from "./script.js";
+import { findMember } from "./script.js";
 
 export function constructResult(resultData) {
   const resultObject = {
@@ -61,10 +61,4 @@ export function constructResult(resultData) {
   resultObject.convertedTime = resultObject.convertToMs();
 
   return resultObject;
-}
-
-export function findMember(id) {
-  const member = memberList.find((member) => member.id == id);
-  console.log(member);
-  return member;
 }

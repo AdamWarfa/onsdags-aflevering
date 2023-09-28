@@ -55,16 +55,21 @@ function displayResults(results) {
   const table = document.querySelector("table#results tbody");
   table.innerHTML = "";
   for (const result of results) {
-    const html = /*html*/ `
+    try {
+      const member = findMember(result.memberId);
+      const html = /*html*/ `
     <tbody>
       <td>${result.date.toLocaleString("da-DK", { month: "long" })}</td>
-      <td>${result.memberId}</td>
+      <td>${member.name}</td>
       <td>${result.discipline}</td>
       <td>${result.resultType}</td>
       <td>${result.time}</td>
     </tbody>`;
 
-    table.insertAdjacentHTML("beforeend", html);
+      table.insertAdjacentHTML("beforeend", html);
+    } catch (error) {
+      console.log(error);
+    }
   }
 }
 
@@ -85,4 +90,9 @@ function displayMembers(members) {
   }
 }
 
-export { memberList, resultList };
+function findMember(id) {
+  const member = memberList.find((member) => member.id == id);
+  return member;
+}
+
+export { memberList, resultList, findMember };
