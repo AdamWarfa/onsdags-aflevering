@@ -35,7 +35,6 @@ export function constructMember(memberdata) {
 
   MemberObject.age = calculateAge(MemberObject.birthday);
   MemberObject.ageGroup = MemberObject.getJuniorSeniorStatus();
-  MemberObject.birthday = rewriteDate(MemberObject.birthday);
   return MemberObject;
 }
 
@@ -48,15 +47,4 @@ function calculateAge(birthday) {
     age--;
   }
   return age;
-}
-
-function rewriteDate(date) {
-  const d = new Date(date);
-
-  const year = d.getFullYear();
-  let month = d.toLocaleString("da-DK", { month: "long" });
-  const day = d.getDate();
-
-  const compDate = `${day}. ${month} ${year}`;
-  return compDate;
 }

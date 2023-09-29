@@ -7,7 +7,7 @@ const memberRenderer = {
     <tr>
       <td>${member.name}</td>
       <td>${member.active}</td>
-      <td>${member.birthday.toLocaleString("da-DK", { month: "long" })}</td>
+      <td>${member.birthday.toLocaleString("da-DK", { year: "numeric", month: "long", day: "numeric" })}</td>
       <td>${member.age}</td>
       <td>${member.ageGroup}</td>
     </tr>`;

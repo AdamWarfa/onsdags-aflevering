@@ -11,8 +11,7 @@ let resultList = [];
 let memberList = [];
 
 async function initApp() {
-  document.querySelector("#members-name").addEventListener("click", sortMembersByName);
-  document.querySelector("#members-age").addEventListener("click", sortMembersByAge);
+  // document.querySelector("#members-age").addEventListener("click", sortMembersByAge);
   initTabs();
 
   await buildMembersList();
@@ -28,6 +27,20 @@ async function initApp() {
 
   const resultRendered = renderer.construct(resultList, "table#results tbody", resultRenderer);
   resultRendered.render();
+
+  const memberSortValues = ["name", "active", "birthday", "age", "ageGroup"];
+
+  for (const value of memberSortValues) {
+    let sortType = "";
+    if (value == "birthday" || value == "age") {
+      sortType = "number";
+    } else {
+      sortType = "string";
+    }
+    document.querySelector(`#members-${value}`).addEventListener("click", () => {
+      memberRendered.sort(value, sortType);
+    });
+  }
 }
 
 async function fetchResults() {
@@ -63,19 +76,6 @@ async function buildMembersList() {
 function findMember(id) {
   const member = memberList.find((member) => member.id == id);
   return member;
-}
-function sortMembersByName() {
-  memberList.sort((a, b) => a.name.localeCompare(b.name));
-  document.querySelector("table#members tbody").innerHTML = "";
-  const memberRendered = renderer.construct(memberList, "table#members tbody", memberRenderer);
-  memberRendered.render(memberList);
-}
-
-function sortMembersByAge() {
-  memberList.sort((a, b) => a.age - b.age);
-  document.querySelector("table#members tbody").innerHTML = "";
-  const memberRendered = renderer.construct(memberList, "table#members tbody", memberRenderer);
-  memberRendered.render(memberList);
 }
 
 export { memberList, resultList, findMember };
