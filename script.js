@@ -1,6 +1,9 @@
 import { initTabs } from "./tabs.js";
 import * as result from "./resultConstruct.js";
 import * as member from "./memberConstruct.js";
+import * as renderer from "./list-renderer.js";
+import { memberRenderer } from "./memberRenderer.js";
+import { resultRenderer } from "./resultRenderer.js";
 
 window.addEventListener("load", initApp);
 
@@ -8,6 +11,8 @@ let resultList = [];
 let memberList = [];
 
 async function initApp() {
+  document.querySelector("#members-name").addEventListener("click", sortMembersByName);
+  document.querySelector("#members-age").addEventListener("click", sortMembersByAge);
   initTabs();
 
   await buildMembersList();
@@ -17,8 +22,12 @@ async function initApp() {
   console.log(resultList);
 
   resultList.sort((a, b) => a.convertedTime - b.convertedTime);
-  displayResults(resultList);
-  displayMembers(memberList);
+
+  const memberRendered = renderer.construct(memberList, "table#members tbody", memberRenderer);
+  memberRendered.render();
+
+  const resultRendered = renderer.construct(resultList, "table#results tbody", resultRenderer);
+  resultRendered.render();
 }
 
 async function fetchResults() {
@@ -51,48 +60,22 @@ async function buildMembersList() {
   }
 }
 
-function displayResults(results) {
-  const table = document.querySelector("table#results tbody");
-  table.innerHTML = "";
-  for (const result of results) {
-    try {
-      const member = findMember(result.memberId);
-      const html = /*html*/ `
-    <tbody>
-      <td>${result.date.toLocaleString("da-DK", { month: "long" })}</td>
-      <td>${member.name}</td>
-      <td>${result.discipline}</td>
-      <td>${result.resultType}</td>
-      <td>${result.time}</td>
-    </tbody>`;
-
-      table.insertAdjacentHTML("beforeend", html);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-}
-
-function displayMembers(members) {
-  const table = document.querySelector("table#members tbody");
-  table.innerHTML = "";
-  for (const member of members) {
-    const html = /*html*/ `
-    <tr>
-      <td>${member.name}</td>
-      <td>${member.active}</td>
-      <td>${member.birthday.toLocaleString("da-DK", { month: "long" })}</td>
-      <td>${member.age}</td>
-      <td>${member.ageGroup}</td>
-    </tr>`;
-
-    table.insertAdjacentHTML("beforeend", html);
-  }
-}
-
 function findMember(id) {
   const member = memberList.find((member) => member.id == id);
   return member;
+}
+function sortMembersByName() {
+  memberList.sort((a, b) => a.name.localeCompare(b.name));
+  document.querySelector("table#members tbody").innerHTML = "";
+  const memberRendered = renderer.construct(memberList, "table#members tbody", memberRenderer);
+  memberRendered.render(memberList);
+}
+
+function sortMembersByAge() {
+  memberList.sort((a, b) => a.age - b.age);
+  document.querySelector("table#members tbody").innerHTML = "";
+  const memberRendered = renderer.construct(memberList, "table#members tbody", memberRenderer);
+  memberRendered.render(memberList);
 }
 
 export { memberList, resultList, findMember };
