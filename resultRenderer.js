@@ -7,8 +7,8 @@ const resultRenderer = {
 
     const html = /*html*/ `
     <tbody>
-      <td>${result.date.toLocaleString("da-DK", { month: "long" })}</td>
-      <td>${member.name}</td>
+      <td>${result.date.toLocaleString("da-DK", { year: "numeric", month: "long", day: "numeric" })}</td>
+      <td>${result.memberName}</td>
       <td>${result.discipline}</td>
       <td>${result.resultType}</td>
       <td>${result.time}</td>

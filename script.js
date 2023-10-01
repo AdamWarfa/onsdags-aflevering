@@ -41,6 +41,24 @@ async function initApp() {
       memberRendered.sort(value, sortType);
     });
   }
+  const resultSortValues = ["date", "memberName", "discipline", "resultType", "time"];
+  for (const value of resultSortValues) {
+    let sortType = "";
+    if (value == "date") {
+      sortType = "number";
+    } else {
+      sortType = "string";
+    }
+    document.querySelector(`#results-${value}`).addEventListener("click", () => {
+      resultRendered.sort(value, sortType);
+    });
+  }
+
+  document.querySelector("#members-select").addEventListener("change", () => {
+    let filterProperty = "group";
+    let filterValue = document.querySelector("#members-select").value;
+    memberRendered.filter(filterProperty, filterValue);
+  });
 }
 
 async function fetchResults() {

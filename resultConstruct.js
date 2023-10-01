@@ -12,6 +12,7 @@ export function constructResult(resultData) {
     resultType: resultData.resultType,
     time: resultData.time,
     member: findMember(resultData.memberId),
+    memberName: "",
 
     isTraining() {
       if (this.resultType === "Training") {
@@ -57,7 +58,9 @@ export function constructResult(resultData) {
       resultObject.discipline = "Butterfly";
       break;
   }
-
+  try {
+    resultObject.memberName = resultObject.member.name;
+  } catch (error) {}
   resultObject.convertedTime = resultObject.convertToMs();
 
   return resultObject;

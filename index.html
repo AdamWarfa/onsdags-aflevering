@@ -9,35 +9,47 @@
   </head>
   <body>
     <h1>Medlemmer og Resultater</h1>
-
     <div id="tabs">
-      <h2 data-tab-show="members">Medlemmer</h2>
-      <h2 data-tab-show="results">Resultater</h2>
-      <table id="members" class="hide">
-        <thead>
-          <tr>
-            <th id="members-name">Navn</th>
-            <th id="members-active">Aktiv</th>
-            <th id="members-birthday">Fødselsdag</th>
-            <th id="members-age">Alder</th>
-            <th id="members-ageGroup">Gruppe</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-
-      <table id="results" class="hide">
-        <thead>
-          <tr>
-            <th>Dato</th>
-            <th>Medlem</th>
-            <th>Disciplin</th>
-            <th>Type</th>
-            <th>Tid</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
+      <h2 data-tab-show="members-tab">Medlemmer</h2>
+      <h2 data-tab-show="results-tab">Resultater</h2>
+      <div id="members-tab" class="hide">
+        <select name="members-select" id="members-select">
+          <option value="all">Alle</option>
+          <option value="junior">Junior</option>
+          <option value="senior">Senior</option>
+        </select>
+        <table id="members">
+          <thead>
+            <tr>
+              <th id="members-name">Navn</th>
+              <th id="members-active">Aktiv</th>
+              <th id="members-birthday">Fødselsdag</th>
+              <th id="members-age">Alder</th>
+              <th id="members-ageGroup">Gruppe</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div id="results-tab" class="hide">
+        <select name="results-select" id="results-select">
+          <option value="all">Alle</option>
+          <option value="training">Træning</option>
+          <option value="competition">Konkurence</option>
+        </select>
+        <table id="results">
+          <thead>
+            <tr>
+              <th id="results-date">Dato</th>
+              <th id="results-memberName">Medlem</th>
+              <th id="results-discipline">Disciplin</th>
+              <th id="results-resultType">Type</th>
+              <th id="results-time">Tid</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
     </div>
 
     <script src="script.js" type="module"></script>

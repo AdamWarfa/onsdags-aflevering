@@ -11,7 +11,6 @@ function construct(list, container, itemRenderer) {
     clear() {
       this.renderers = [];
       this.container.innerHTML = "";
-      console.log(this.container);
     },
 
     render() {
@@ -22,6 +21,9 @@ function construct(list, container, itemRenderer) {
       }
 
       let renderers = this.renderers;
+
+      const filteredList = renderers.filter((renderer) => renderer.item.active == "Ja");
+      console.log(filteredList);
 
       for (const renderer of renderers) {
         try {
@@ -48,9 +50,9 @@ function construct(list, container, itemRenderer) {
           this.sortDir = "asc";
         } else {
           if (sortType == "number") {
-            list = list.sort((a, b) => a[`${sortBy}`] - b[`${sortBy}`]);
+            list.sort((a, b) => a[`${sortBy}`] - b[`${sortBy}`]);
           } else if (sortType == "string") {
-            list = list.sort((a, b) => a[`${sortBy}`].localeCompare(b[`${sortBy}`]));
+            list.sort((a, b) => a[`${sortBy}`].localeCompare(b[`${sortBy}`]));
           }
         }
 
@@ -59,6 +61,11 @@ function construct(list, container, itemRenderer) {
       this.sortBy = sortBy;
       this.clear();
 
+      this.render();
+    },
+    filter(filterProperty, filterValue) {
+      console.log(filterProperty);
+      console.log(filterValue);
       this.render();
     },
   };
