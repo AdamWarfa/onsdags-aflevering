@@ -7,14 +7,14 @@ function construct(list, container, itemRenderer) {
     sortBy: undefined,
     sortDir: "asc",
     sortType: undefined,
-
+    items: list,
     clear() {
       this.renderers = [];
       this.container.innerHTML = "";
     },
 
     render() {
-      for (const item of list) {
+      for (const item of this.items) {
         const renderer = Object.create(itemRenderer);
         renderer.item = item;
         this.renderers.push(renderer);
@@ -66,6 +66,7 @@ function construct(list, container, itemRenderer) {
     filter(filterProperty, filterValue) {
       console.log(filterProperty);
       console.log(filterValue);
+      this.clear();
       this.render();
     },
   };

@@ -12,10 +12,10 @@ export function constructResult(resultData) {
     resultType: resultData.resultType,
     time: resultData.time,
     member: findMember(resultData.memberId),
-    memberName: "",
+    memberName: "Medlemmet er slettet",
 
     isTraining() {
-      if (this.resultType === "Training") {
+      if (this.resultType === "training") {
         return true;
       } else {
         return false;
